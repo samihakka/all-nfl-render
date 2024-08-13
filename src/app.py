@@ -1,72 +1,61 @@
 import dash
-from dash import Dash, dcc, html, Input, Output, callback
-import dash_bootstrap_components as dbc
+import pandas as pd
+from dash import Dash, dash_table, dcc, html, Input, Output, State
+import plotly.express as px
 
-
-# Initialize the Dash app
-dbc_css = 'https://cdn.jsdelivr.net/gh/AnnMarieW/dash-bootstrap-templates/dbc.min.css'
-app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP], suppress_callback_exceptions=True, use_pages=True)
+app = Dash(__name__)
 server = app.server
 
-# import full_season_team_stats
+df = px.data.gapminder()
 
-app.title = "NFL is King"
-black="0a0a0a"
-
-# nav = dbc.Nav([
-#     dbc.DropdownMenu(
-#         [
-#             dbc.DropdownMenuItem("Simple Stuff", href="/once-per"),
-#             dbc.DropdownMenuItem("Advanced Betting", href="/betting-advanced"),
-#         ],
-#         label="Betting",
-#         nav=True
-#     ),
-#     dbc.DropdownMenu(
-#         [
-#             dbc.DropdownMenuItem("Team Stats", href="/full-season-team-stats"),
-#             dbc.DropdownMenuItem("League Leaders", href="/league-leaders"),
-#         ],
-#         label="Stats",
-#         nav=True
-#     )
-# ])
-
-NFL_logo = "assets/nfl_logo.png"
-steamers = "assets/steamers.png"
-
-navbar = dbc.Navbar(
-    dbc.Container(
-        [
-            html.A(
-                dbc.Row(
-                    [
-                        dbc.Col(html.Img(src=NFL_logo, height="100px")),
-                        dbc.Col(dbc.NavbarBrand("All NFL Dashboard", className="ms-1")),
-                        dbc.Col(html.Img(src=steamers, height="100px")),
-                    ],
-                    align="center",
-                    className="g-0",
-                    style={"margin": "0 auto"}
-                ),
-                href="/",
-                style={"textDecoration": "none"}
-            ),
-            # nav,
-            dbc.NavbarToggler(id="navbar-toggler", n_clicks=0)
-        ]
-    ),
-    color="primary",
-    dark=True
+range_slider = dcc.RangeSlider(
+    value=[1987, 2007],
+    step=5,
+    marks={i: str(i) for i in range(1952, 2012, 5)},
 )
 
-app.layout = html.Div([
-    navbar,
-    # html.H1("Beep Boop", style={"textAlign": 'center'}),
-    dcc.Location(id='url', refresh=False),  # Manages URL
-    dash.page_container
-])
+dtable = dash_table.DataTable(
+    columns=[{"name": i, "id": i} for i in sorted(df.columns)],
+    sort_action="native",
+    page_size=10,
+    style_table={"overflowX": "auto"},
+)
+
+download_button = html.Button("Download Filtered CSV", style={"marginTop": 20})
+download_component = dcc.Download()
+
+app.layout = html.Div(
+    [
+        html.H2("Gapminder Data Download", style={"marginBottom": 20}),
+        download_component,
+        range_slider,
+        download_button,
+        dtable,
+    ]
+)
 
 
-if __name__ == '__main__':
+@app.callback(
+    Output(dtable, "data"),
+    Input(range_slider, "value"),
+)
+def update_table(slider_value):
+    if not slider_value:
+        return dash.no_update
+    dff = df[df.year.between(slider_value[0], slider_value[1])]
+    return dff.to_dict("records")
+
+
+@app.callback(
+    Output(download_component, "data"),
+    Input(download_button, "n_clicks"),
+    State(dtable, "derived_virtual_data"),
+    prevent_initial_call=True,
+)
+def download_data(n_clicks, data):
+    dff = pd.DataFrame(data)
+    return dcc.send_data_frame(dff.to_csv, "filtered_csv.csv")
+
+
+if __name__ == "__main__":
     app.run_server(debug=True)
