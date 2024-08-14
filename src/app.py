@@ -13,24 +13,24 @@ server = app.server
 app.title = "NFL is King"
 black="0a0a0a"
 
-# nav = dbc.Nav([
-#     dbc.DropdownMenu(
-#         [
-#             dbc.DropdownMenuItem("Simple Stuff", href="/once-per"),
-#             dbc.DropdownMenuItem("Advanced Betting", href="/betting-advanced"),
-#         ],
-#         label="Betting",
-#         nav=True
-#     ),
-#     dbc.DropdownMenu(
-#         [
-#             dbc.DropdownMenuItem("Team Stats", href="/full-season-team-stats"),
-#             dbc.DropdownMenuItem("League Leaders", href="/league-leaders"),
-#         ],
-#         label="Stats",
-#         nav=True
-#     )
-# ])
+nav = dbc.Nav([
+    dbc.DropdownMenu(
+        [
+            dbc.DropdownMenuItem("Simple Stuff", href="/once-per"),
+            dbc.DropdownMenuItem("Advanced Betting", href="/betting-advanced"),
+        ],
+        label="Betting",
+        nav=True
+    ),
+    dbc.DropdownMenu(
+        [
+            dbc.DropdownMenuItem("Team Stats", href="/full-season-team-stats"),
+            dbc.DropdownMenuItem("League Leaders", href="/league-leaders"),
+        ],
+        label="Stats",
+        nav=True
+    )
+])
 
 NFL_logo = "assets/nfl_logo.png"
 steamers = "assets/steamers.png"
@@ -52,7 +52,7 @@ navbar = dbc.Navbar(
                 href="/",
                 style={"textDecoration": "none"}
             ),
-            # nav,
+            nav,
             dbc.NavbarToggler(id="navbar-toggler", n_clicks=0)
         ]
     ),

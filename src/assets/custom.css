@@ -1,0 +1,7 @@
+.accordion-button {
+    font-size: xx-large;
+}
+
+.accordion-button:not(.collapsed) {
+    background-color: red;
+}
