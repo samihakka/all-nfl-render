@@ -5,7 +5,7 @@ class MongoConnect:
     def __init__(self) -> None:
         pass
     def connect_collecion(self):
-        uri = "mongodb+srv://shakka32:chickendinner@nfl.uvhq9b9.mongodb.net/?retryWrites=true&w=majority&appName=NFL"
+        uri = "mongodb+srv://shakka32:chickendinner@nfl.uvhq9b9.mongodb.net/?tls=true&tlsAllowInvalidCertificates=true&retryWrites=true&w=majority&appName=NFL"
         client = MongoClient(uri, server_api=ServerApi('1'))
         # Send a ping to confirm a successful connection
         try:
@@ -14,6 +14,7 @@ class MongoConnect:
         except Exception as e:
             print(e)
         return client
+
 
 
     def deploy(self, payload):
