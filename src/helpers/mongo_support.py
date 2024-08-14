@@ -1,16 +1,11 @@
 from pymongo import MongoClient
 from pymongo.server_api import ServerApi
-import os
 
 class MongoConnect:
     def __init__(self) -> None:
         pass
     def connect_collecion(self):
-        uri = uri = os.getenv('MONGODB_URI')
-        
-        if not uri:
-            raise ValueError("MONGODB_URI environment variable not set")
-
+        uri = "mongodb+srv://shakka32:chickendinner@nfl.uvhq9b9.mongodb.net/?tls=true&tlsAllowInvalidCertificates=true&retryWrites=true&w=majority&appName=NFL"
         client = MongoClient(uri, server_api=ServerApi('1'))
         # Send a ping to confirm a successful connection
         try:
