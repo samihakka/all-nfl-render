@@ -6,7 +6,7 @@ import dash_bootstrap_components as dbc
 # Initialize the Dash app
 dbc_css = 'https://cdn.jsdelivr.net/gh/AnnMarieW/dash-bootstrap-templates/dbc.min.css'
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP], suppress_callback_exceptions=True, use_pages=True)
-
+server = app.server
 
 # import full_season_team_stats
 
