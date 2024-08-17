@@ -5,3 +5,8 @@
 .accordion-button:not(.collapsed) {
     background-color: red;
 }
+
+.section {
+    padding-top: 50vh;  /* Offset by 50% of the viewport height */
+    margin-top: -50vh;  /* Pull it back up by 50% of the viewport height */
+}

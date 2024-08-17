@@ -146,7 +146,7 @@ class BettingHelper():
 
         layout = html.Div([
 
-            html.H1("BIIITCH WE HITTIN THE OVER!!!", style={"text-align": "center"}),
+            html.Div(style={'height': '75px'}),
             ou_dropdown,
             html.Div(id='bar-graph-container', style={'margin': '0 7%'}),
             ]
@@ -215,12 +215,14 @@ class BettingHelper():
 
         layout = html.Div([
 
-            html.H1("SPREAD YA LEGS!!!", style={"text-align": "center"}),
+            html.Div(style={'height': '75px'}),
             spread_dropdown,
+            html.Br(),
             html.Div(id='bar-graph-container-spread', style={'margin': '0 7%'}),
+            html.Br(),
             dbc.Row(
                 [dbc.Col(card, width="auto"),
-                dbc.Col(card2, width="auto")]
+                dbc.Col(card2, width="auto")], style={"justify-content": "center"}
                 
             )
         ])

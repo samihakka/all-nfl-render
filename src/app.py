@@ -32,8 +32,8 @@ nav = dbc.Nav([
     )
 ])
 
-NFL_logo = "assets/nfl_logo.png"
-steamers = "assets/steamers.png"
+NFL_logo = "assets/trans_nfl_logo.png"
+steamers = "assets/trans_duke.png"
 
 navbar = dbc.Navbar(
     dbc.Container(
@@ -42,7 +42,13 @@ navbar = dbc.Navbar(
                 dbc.Row(
                     [
                         dbc.Col(html.Img(src=NFL_logo, height="100px")),
-                        dbc.Col(dbc.NavbarBrand("All NFL Dashboard", className="ms-1")),
+                        dbc.Col(
+                            dbc.NavbarBrand(
+                                "All-NFL Dashboard",
+                                className="ms-1",
+                                style={"font-size": "2rem", 'font-weight': 'bold'}  # Increase font size
+                            )
+                        ),
                         dbc.Col(html.Img(src=steamers, height="100px")),
                     ],
                     align="center",
@@ -56,7 +62,9 @@ navbar = dbc.Navbar(
             dbc.NavbarToggler(id="navbar-toggler", n_clicks=0)
         ]
     ),
-    color="primary",
+    style={
+        "background": "linear-gradient(to right, #2847f7, #fa4141)"  # Gradient colors 
+    },
     dark=True
 )
 

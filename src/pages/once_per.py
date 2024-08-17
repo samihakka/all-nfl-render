@@ -67,4 +67,14 @@ layout = html.Div(
         ),
 
     ],
+    style={
+        'background-image': 'url("/assets/real_chino.jpeg")',
+        'backgroundSize': 'cover',
+        'backgroundAttachment': 'fixed',
+        'overflow': 'auto',
+        'display': 'flex',
+        'flexDirection': 'column',
+        'alignItems': 'center',  # Center horizontally
+        'padding': '2rem',  # Add some padding around the content
+    }
 )

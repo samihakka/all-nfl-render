@@ -6,6 +6,19 @@ import dash_bootstrap_components as dbc
 
 mongo = MongoConnect()
 
+text_block = {
+    "textAlign": "center",
+    "font-weight": "bold",
+    "border": "2px solid white",  # White border with 2px thickness
+    "padding": "10px",  # Add some padding inside the border
+    "backgroundColor": "white",  # White background inside the border
+    "color": "black",  # Black text color for contrast
+    "border-radius": "5px",  # Optional: rounded corners
+    "display": "inline-block",  # Ensures the block size fits the content
+    "margin-left": "15%",  # Set left margin to 15%
+    "margin-right": "5%",  # Set right margin to 5%
+}
+
 # Initialize the Dash app
 dash.register_page(__name__, path='/full-season-team-stats')
 sandbox = ["display", "logo", "logo_html"]
@@ -85,7 +98,7 @@ for i, item in enumerate(array_of_dicts):
 
     curr_card = (dbc.Card(
             [
-                dbc.CardImg(src=item["logo"], top=True, style={'height': '200px', 'width': '200px', "margin": "auto"}),
+                dbc.CardImg(src=item["logo"], top=True, style={'height': '200px', 'width': '70%', "margin": "auto"}),
                 dbc.CardBody(
                     [
                         html.H4(item["name"], className="card-title", style={"textAlign": "center"}),
@@ -163,71 +176,43 @@ for i, item in enumerate(array_of_dicts):
 
 nfc_north_cards = dbc.CardGroup(
     nfc_north_cards_arr,
-    style={"marginLeft": "5%", "marginRight": "5%"}
+    style={"marginLeft": "15%", "marginRight": "5%"}
 )
 
 nfc_east_cards = dbc.CardGroup(
     nfc_east_cards_arr,
-    style={"marginLeft": "5%", "marginRight": "5%"}
+    style={"marginLeft": "15%", "marginRight": "5%"}
 )
 
 nfc_south_cards = dbc.CardGroup(
     nfc_south_cards_arr,
-    style={"marginLeft": "5%", "marginRight": "5%"}
+    style={"marginLeft": "15%", "marginRight": "5%"}
 )
 
 nfc_west_cards = dbc.CardGroup(
     nfc_west_cards_arr,
-    style={"marginLeft": "5%", "marginRight": "5%"}
+    style={"marginLeft": "15%", "marginRight": "5%"}
 )
 
 afc_north_cards = dbc.CardGroup(
     afc_north_cards_arr,
-    style={"marginLeft": "5%", "marginRight": "5%"}
+    style={"marginLeft": "15%", "marginRight": "5%"}
 )
 
 afc_east_cards = dbc.CardGroup(
     afc_east_cards_arr,
-    style={"marginLeft": "5%", "marginRight": "5%"}
+    style={"marginLeft": "15%", "marginRight": "5%"}
 )
 
 afc_south_cards = dbc.CardGroup(
     afc_south_cards_arr,
-    style={"marginLeft": "5%", "marginRight": "5%"}
+    style={"marginLeft": "15%", "marginRight": "5%"}
 )
 
 afc_west_cards = dbc.CardGroup(
     afc_west_cards_arr,
-    style={"marginLeft": "5%", "marginRight": "5%"}
+    style={"marginLeft": "15%", "marginRight": "5%"}
 )
-
-# table = dash_table.DataTable(
-#     id="records-table",
-#     style_table={ 
-#         'overflowX': 'auto',
-#         'overflowY': 'auto',
-#         'width': '50%',
-#         'maxHeight': '70rem',
-#         'margin': 'auto',
-#     },
-#     style_cell={
-#         'whiteSpace': 'normal',
-#         'maxHeight': '20px',
-#         'margin': 'auto',
-#         'minWidth': '5vw', 'maxWidth': '20vw',
-#         'overflow': 'hidden', 'textAlign': 'center'
-#     },
-#     style_data={
-#         'whiteSpace': 'normal',
-#         'height': 'auto',
-#         'border': 'none'
-#     },
-#     columns=[
-#         {"name": i, "id": i, "presentation": "markdown"} if i in sandbox else {"name": i, "id": i}
-#         for i in niners_games_df.columns
-#     ], 
-#     data=niners_games_df.to_dict('records'),
-# )
 
 @callback(
     Output({"type": "modal-centered", "index": MATCH}, "is_open"),
@@ -240,32 +225,149 @@ def toggle_modal(n1, n2, is_open):
         return not is_open
     return is_open
 
-layout = html.Div(
+
+button_ids = [
+    'nfc-west-button', 'nfc-north-button', 'nfc-east-button', 'nfc-south-button',
+    'afc-west-button', 'afc-north-button', 'afc-east-button', 'afc-south-button'
+]
+
+SIDEBAR_STYLE = {
+    "position": "fixed",
+    "top": "150px",
+    "left": "5px",
+    "bottom": "75px",
+    "width": "15%",
+    "padding": "2rem 1rem",
+    "background-color": "#f8f9fa",
+    "border-radius": "15px",  # Adjust the radius as needed
+    "box-shadow": "0px 4px 8px rgba(0, 0, 0, 0.1)",  # Optional: Adds a subtle shadow for better visual effect
+    'min-height': '700px',
+    'max-height': '700px',
+    'min-width': '200px'
+}
+
+sidebar = html.Div(
     [
-        # navbar,
-        html.H2("NFC West", style={"textAlign": "center", "font-weight": "bold"}),
-        nfc_west_cards,
-        html.Br(),
-        html.H2("NFC North", style={"textAlign": "center", "font-weight": "bold"}),
-        nfc_north_cards,
-        html.Br(),
-        html.H2("NFC East", style={"textAlign": "center", "font-weight": "bold"}),
-        nfc_east_cards,
-        html.Br(),
-        html.H2("NFC South", style={"textAlign": "center", "font-weight": "bold"}),
-        nfc_south_cards,
-        html.Br(),
-        html.H2("AFC West", style={"textAlign": "center", "font-weight": "bold"}),
-        afc_west_cards,
-        html.Br(),
-        html.H2("AFC North", style={"textAlign": "center", "font-weight": "bold"}),
-        afc_north_cards,
-        html.Br(),
-        html.H2("AFC East", style={"textAlign": "center", "font-weight": "bold"}),
-        afc_east_cards,
-        html.Br(),
-        html.H2("AFC South", style={"textAlign": "center", "font-weight": "bold"}),
-        afc_south_cards,
+        html.H4("Select a Division", className="display-5", style = {'textAlign': 'center'}),
+        html.Hr(),
+        html.Img(src='assets/nfc.jpg', style={'display': 'block', 'margin-left': 'auto', 'margin-right': 'auto', 'width': '100px'}),
+        html.Div(style={'height': '15px'}),
+        html.Div([
+            html.A(html.Button('NFC West', id='nfc-west-button', n_clicks=0, className='btn btn-outline-primary', style={'width': '100%'}), href='#nfc-west-ts'),
+            html.A(html.Button('NFC North', id='nfc-north-button', n_clicks=0, className='btn btn-outline-primary', style={'width': '100%'}), href='#nfc-north-ts'),
+        ], style={
+            'display': 'flex',
+            'flex-direction': 'row',
+            'align-items': 'center',
+            'gap': '10px',         
+            'width': '100%',          
+            'max-width': '200px',       
+            'margin': 'auto'            
+        }),
+        html.Div(style={'height': '5px'}),
+        html.Div([
+            html.A(html.Button('NFC East', id='nfc-east-button', n_clicks=0, className='btn btn-outline-primary', style={'width': '100%'}), href='#nfc-east-ts'),
+            html.A(html.Button('NFC South', id='nfc-south-button', n_clicks=0, className='btn btn-outline-primary', style={'width': '100%'}), href='#nfc-south-ts'),
+        ], style={
+            'display': 'flex',
+            'flex-direction': 'row',
+            'align-items': 'center',
+            'gap': '10px',         
+            'width': '100%',          
+            'max-width': '200px',       
+            'margin': 'auto'            
+        }),
+        html.Div(style={'height': '50px'}),
+        html.Img(src='assets/afc.jpg', style={'display': 'block', 'margin-left': 'auto', 'margin-right': 'auto', 'width': '100px'}),
+        html.Div(style={'height': '15px'}),
+        html.Div([
+            html.A(html.Button('AFC West', id='afc-west-button', n_clicks=0, className='btn btn-outline-primary', style={'width': '100%'}), href='#afc-west-ts'),
+            html.A(html.Button('AFC North', id='afc-north-button', n_clicks=0, className='btn btn-outline-primary', style={'width': '100%'}), href='#afc-north-ts'),
+        ], style={
+            'display': 'flex',
+            'flex-direction': 'row',
+            'align-items': 'center',
+            'gap': '10px',         
+            'width': '100%',          
+            'max-width': '200px',       
+            'margin': 'auto'            
+        }),
+        html.Div(style={'height': '5px'}),
+        html.Div([
+            html.A(html.Button('AFC East', id='afc-east-button', n_clicks=0, className='btn btn-outline-primary', style={'width': '100%'}), href='#afc-east-ts'),
+            html.A(html.Button('AFC South', id='afc-south-button', n_clicks=0, className='btn btn-outline-primary', style={'width': '100%'}), href='#afc-south-ts'),
+        ], style={
+            'display': 'flex',
+            'flex-direction': 'row',
+            'align-items': 'center',
+            'gap': '10px',         
+            'width': '100%',          
+            'max-width': '200px',       
+            'margin': 'auto'            
+        }),
     ],
+    style=SIDEBAR_STYLE,
 )
 
+layout = html.Div(
+    [
+        sidebar,
+        html.Br(),
+        # navbar,
+        html.H2("NFC West", style=text_block, id="nfc-west-ts"),
+        nfc_west_cards,
+        html.Br(),
+        html.H2("NFC North", style=text_block, id="nfc-north-ts"),
+        nfc_north_cards,
+        html.Br(),
+        html.H2("NFC East", style=text_block, id="nfc-east-ts"),
+        nfc_east_cards,
+        html.Br(),
+        html.H2("NFC South", style=text_block, id="nfc-south-ts"),
+        nfc_south_cards,
+        html.Br(),
+        html.H2("AFC West", style=text_block, id="afc-west-ts"),
+        afc_west_cards,
+        html.Br(),
+        html.H2("AFC North", style=text_block, id="afc-north-ts"),
+        afc_north_cards,
+        html.Br(),
+        html.H2("AFC East", style=text_block, id="afc-east-ts"),
+        afc_east_cards,
+        html.Br(),
+        html.H2("AFC South", style=text_block, id="afc-south-ts"),
+        afc_south_cards,
+        html.Div(style={'height': '50px'})
+    ],
+    style={
+        'background-image': 'url("/assets/soccer.jpeg")',
+        'backgroundSize': 'cover',
+        'backgroundAttachment': 'fixed',
+        'overflow': 'auto',
+        'display': 'flex',
+        'flexDirection': 'column',
+        'alignItems': 'center',  # Center horizontally
+        'padding': '2rem',  # Add some padding around the content
+    }
+)
+
+@callback(
+    [Output(button_id, 'className') for button_id in button_ids],
+    [Input(button_id, 'n_clicks') for button_id in button_ids]
+)
+def update_button_styles(*n_clicks):
+    ctx = dash.callback_context
+
+    if not ctx.triggered:
+        return ['btn btn-outline-primary' for _ in button_ids]
+    
+    clicked_button_id = ctx.triggered[0]['prop_id'].split('.')[0]
+    
+    updated_classes = []
+    for button_id in button_ids:
+        if button_id == clicked_button_id:
+            updated_classes.append('btn btn-primary')
+        else:
+            updated_classes.append('btn btn-outline-primary')
+    
+    return updated_classes

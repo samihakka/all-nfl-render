@@ -79,7 +79,7 @@ def create_overunder():
 children = create_spread()
 
 layout = html.Div(
-    style={"display": "flex", "height": "100vh"},
+    # style={"display": "flex", "height": "100vh"},
     children = [
 
         html.Div(
@@ -90,10 +90,21 @@ layout = html.Div(
             id="data-container",
             children=children,
             style={"flex": "1", "display": "flex", "flex-wrap": "wrap", "justify-content": "center"}
-        )
+        ),
+        html.Div(style={'height': '1000px'})
 
 
-    ]
+    ],
+    style={
+        'background-image': 'url("/assets/real_chino.jpeg")',
+        'backgroundSize': 'cover',
+        'backgroundAttachment': 'fixed',
+        'overflow': 'auto',
+        'display': 'flex',
+        # 'alignItems': 'center',  # Center horizontally
+        'padding': '2rem',  # Add some padding around the content
+        "height": "100%"
+    }
     
 
 )
