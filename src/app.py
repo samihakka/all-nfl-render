@@ -29,7 +29,8 @@ nav = dbc.Nav([
         ],
         label="Stats",
         nav=True
-    )
+    ),
+    dbc.NavItem(dbc.NavLink("Game", href="/schedule-game"))
 ])
 
 NFL_logo = "assets/trans_nfl_logo.png"
@@ -65,7 +66,8 @@ navbar = dbc.Navbar(
     style={
         "background": "linear-gradient(to right, #2847f7, #fa4141)"  # Gradient colors 
     },
-    dark=True
+    dark=True,
+    fixed="top" 
 )
 
 app.layout = html.Div([

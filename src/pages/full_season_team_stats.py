@@ -312,7 +312,7 @@ sidebar = html.Div(
 layout = html.Div(
     [
         sidebar,
-        html.Br(),
+        html.Div(style={"height": "150px"}),
         # navbar,
         html.H2("NFC West", style=text_block, id="nfc-west-ts"),
         nfc_west_cards,

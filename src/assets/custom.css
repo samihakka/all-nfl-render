@@ -10,3 +10,29 @@
     padding-top: 50vh;  /* Offset by 50% of the viewport height */
     margin-top: -50vh;  /* Pull it back up by 50% of the viewport height */
 }
+
+/* Hide the default radio button */
+.custom-radio-group .form-check-input {
+    display: none;
+}
+
+/* Style the label for "Win" */
+.custom-radio-win .form-check-label::before {
+    content: "✓";  /* Green checkmark */
+    color: green;
+    font-weight: bold;
+    visibility: hidden;
+}
+
+/* Style the label for "Loss" */
+.custom-radio-loss .form-check-label::before {
+    content: "✗";  /* Red X */
+    color: red;
+    font-weight: bold;
+    visibility: hidden;
+}
+
+/* Show the checkmark or X when the radio button is selected */
+.custom-radio-group .form-check-input:checked + .form-check-label::before {
+    visibility: visible;
+}
