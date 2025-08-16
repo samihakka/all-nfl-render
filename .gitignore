@@ -1,0 +1,10 @@
+# Created by venv; see https://docs.python.org/3/library/venv.html
+__pycache__/
+*.pyc
+
+# Virtual environments
+venv-all-nfl/
+.venv-all-nfl/
+
+# Env Variables
+.env

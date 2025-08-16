@@ -4,3 +4,4 @@ gunicorn
 pandas
 dash-tools
 pymongo==4.8.0
+python-dotenv
