@@ -15,9 +15,6 @@ array_of_dicts = list(document['team_stats'].values())
 df2 = pd.DataFrame(array_of_dicts)
 
 df2 = df2.sort_values(by='spread_units_won', ascending=False)
-print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-print(df2)
-print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
 
 def create_single_card(df, title, point_type):
     card_content = []

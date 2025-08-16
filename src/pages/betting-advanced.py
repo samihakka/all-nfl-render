@@ -30,9 +30,9 @@ team_spreads = {}
 for team in all_teams:
     # print(all_teams[team]["avg_spread"])
     team_spreads[all_teams[team]["name"]] = all_teams[team]["avg_spread"]
-print(team_spreads)
+# print(team_spreads)
 team_spreads = dict(sorted(team_spreads.items(), key=lambda item: item[1]))
-print(team_spreads)
+# print(team_spreads)
 
 # print("num teams: ", len(all_teams))
 # print(team_id_dic)

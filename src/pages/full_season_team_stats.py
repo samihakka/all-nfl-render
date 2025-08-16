@@ -24,53 +24,18 @@ dash.register_page(__name__, path='/full-season-team-stats')
 sandbox = ["display", "logo", "logo_html"]
 
 document = mongo.load("getting_there")
-# print(list(document['team_stats'].values()))
 array_of_dicts = list(document['team_stats'].values())
 df2 = pd.DataFrame(array_of_dicts)
-# df2['display'] = df2['logo'].apply(lambda x: f'![Logo]({x})')
-# df2['display'] = df2['logo'].apply(lambda x: f'![Logo]({x}){{: style="height:50px; width:50px;"}}')
 df2 = df2.drop(columns=['game_log'])
 df2 = df2.drop(columns=['logo'])
 
 
-all_teams = document['team_stats']
-team_id_dic = {}
+# all_teams = document['team_stats']
+# team_id_dic = {}
 
-for team in all_teams:
-    team_id_dic[document["team_stats"][team]["name"]] = team
+# for team in all_teams:
+#     team_id_dic[document["team_stats"][team]["name"]] = team
 
-print("team_id dic from full_season_team_stats", team_id_dic)
-
-df_new = array_of_dicts[28]
-# print(df_new["game_log"])
-
-niners_games_df = pd.DataFrame(df_new["game_log"])
-
-
-ari_logo_path = 'assets/ari.png'
-sf_logo_path = "https://a.espncdn.com/i/teamlogos/nfl/500/sf.png"
-lar_logo_path = "https://a.espncdn.com/i/teamlogos/nfl/500/lar.png"
-sea_logo_path = "https://a.espncdn.com/i/teamlogos/nfl/500/sea.png"
-
-# navbar = dbc.NavbarSimple(
-#     children=[
-#         dbc.NavItem(dbc.NavLink("Page 1", href="#")),
-#         dbc.DropdownMenu(
-#             children=[
-#                 dbc.DropdownMenuItem("More pages", header=True),
-#                 dbc.DropdownMenuItem("Page 2", href="#"),
-#                 dbc.DropdownMenuItem("Page 3", href="#"),
-#             ],
-#             nav=True,
-#             in_navbar=True,
-#             label="More",
-#         ),
-#     ],
-#     brand="All NFL Dashboard",
-#     brand_href="#",
-#     color="primary",
-#     dark=True,
-# )
 
 nfc_north_cards_arr = []
 nfc_south_cards_arr = []
